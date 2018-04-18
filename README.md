@@ -12,4 +12,8 @@ Why using multiple stacks to represent application state? There is one common sc
 
 Imagine your application has one full page view with a button at the beginning. When you click the button it turns to a page with different tabs using BottomNavigationView. You can switch different tabs without stacking the history. History will be stored in individual stacks.
 
+The gif shows what the project serves.
 
+<p align="center">
+<img alt='Sample' src="https://raw.githubusercontent.com/elton2048/SimpleStackTest/master/art/example.gif"></br>
+</p>

@@ -1,0 +1,50 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext {
+        anko_version = "0.10.4"
+        kotlin_version = "1.2.30"
+    }
+    ext.libraries = [
+//            constraint_layout: "com.android.support.constraint:constraint-layout:$constraint_layout_version",
+            kotlin : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+            kotlin_jre7 : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version",
+    ]
+    ext.libraries.anko = [
+            full            : "org.jetbrains.anko:anko:$anko_version",
+            anko            : "org.jetbrains.anko:anko-sdk15:$anko_version",
+            percent         : "org.jetbrains.anko:anko-percent:$anko_version",
+            support_v4      : "org.jetbrains.anko:anko-support-v4:$anko_version",
+            appcompat       : "org.jetbrains.anko:anko-appcompat-v7:$anko_version",
+            design          : "org.jetbrains.anko:anko-design:$anko_version",
+            card_view       : "org.jetbrains.anko:anko-cardview-v7:$anko_version",
+            recycler_view   : "org.jetbrains.anko:anko-recyclerview-v7:$anko_version",
+            coroutines      : "org.jetbrains.anko:anko-coroutines:$anko_version",
+            constraint_layout: "org.jetbrains.anko:anko-constraint-layout:$anko_version",
+    ]
+
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -21,7 +21,7 @@ class BaseOneFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         nextButton.setOnClickListener {
-            MainActivity.get(view.context).navigateTo(HomeKey())
+            MainActivity.get(view.context).navigateTo(HomeKey().withArgs { putString("TAG", "TEST") })
         }
     }
 }

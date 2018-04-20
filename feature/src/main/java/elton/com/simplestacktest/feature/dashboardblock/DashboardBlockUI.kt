@@ -2,10 +2,14 @@ package elton.com.simplestacktest.feature.dashboardblock
 
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintLayout.LayoutParams.PARENT_ID
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import elton.com.simplestacktest.feature.MainActivity
 import elton.com.simplestacktest.feature.R
-import elton.com.simplestacktest.utils.blockLayout
+import elton.com.simplestacktest.feature.baseone.BaseOneKey
+import elton.com.simplestacktest.feature.titlebarbasic.TitleBarBasicKey
+import elton.com.simplestacktest.utils.ankolayout.blockLayout
 import org.jetbrains.anko.*
 import org.jetbrains.anko.constraint.layout.constraintLayout
 
@@ -22,27 +26,37 @@ class DashboardBlockUI: AnkoComponent<DashboardBlockFragment> {
                 )
         val matchParentParams =
                 ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT
+                        matchParent,
+                        matchParent
                 )
         return with(ui) {
             constraintLayout {
-                layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                layoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
 
                 verticalLayout {
+                    blockLayout("Add Device", R.drawable.ic_add_black_24dp).alignToEnd()
+                            .lparams(matchParentParams) {
+                                weight = 1.3f
+                            }
                     linearLayout {
-                        // Null BlockLayout as the first one cannot have ripple effect.
-                        blockLayout("NULL").lparams(width = 0, weight = 0f)
-                        blockLayout("Block 1", R.drawable.ic_blur_circular_black_24dp)
+                        blockLayout("Test", R.drawable.ic_blur_circular_black_24dp,
+                                View.OnClickListener {
+                                    MainActivity[view.context].navigateTo(BaseOneKey())
+                                }
+                        )
                                 .lparams(matchParentParams) {
                                     weight = 1f
                                 }
+
                     }.lparams(matchParentParams) {
-                        weight = 0.3f
+                        weight = 1f
                     }
 
                     linearLayout {
-                        blockLayout("Block 2", R.drawable.ic_blur_circular_black_24dp)
+                        blockLayout("Block 2", R.drawable.ic_blur_circular_black_24dp,
+                                View.OnClickListener {
+                                    MainActivity[view.context].homeFragment?.navigateTo(TitleBarBasicKey())
+                                })
                                 .lparams(matchParentParams) {
                                     weight = 0.5f
                                 }
@@ -51,7 +65,7 @@ class DashboardBlockUI: AnkoComponent<DashboardBlockFragment> {
                                     weight = 0.5f
                                 }
                     }.lparams(matchParentParams) {
-                        weight = 0.3f
+                        weight = 1f
                     }
 
                     linearLayout {
@@ -64,7 +78,7 @@ class DashboardBlockUI: AnkoComponent<DashboardBlockFragment> {
                             weight = 0.5f
                         }
                     }.lparams(matchParentParams) {
-                        weight = 0.3f
+                        weight = 1f
                     }
 
                 }.lparams(constraintMatchParentParams) {

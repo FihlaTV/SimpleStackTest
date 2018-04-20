@@ -92,8 +92,15 @@ class Multistack {
     }
 
     fun onBackPressed(): Boolean {
-        val result = get(selectedStack)?.onBackPressed() ?: false
-        return result
+        return get(selectedStack)?.onBackPressed() ?: false
+    }
+
+    fun navigateTo(key: BaseKey) {
+        get(selectedStack)?.backstack?.goTo(key)
+    }
+
+    fun replaceHistory(key: BaseKey) {
+        get(selectedStack)?.backstack?.setHistory(History.single(key), StateChange.REPLACE)
     }
 
     fun onDestroy() {

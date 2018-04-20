@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(), StateChanger {
         backstackDelegate.onCreate(
                 savedInstanceState,
                 lastCustomNonConfigurationInstance,
+//                History.from(mutableListOf(BaseOneKey(), HomeKey()))
                 History.single(BaseOneKey())
         )
 
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity(), StateChanger {
         val backStackTag = backstackDelegate.backstack.getHistory<BaseKey>().last()
         if (backStackTag.tag == keyName(HomeKey)) {
             val homeFragment = supportFragmentManager.findFragmentByTag(backStackTag.toString()) as HomeFragment
-            if (!(homeFragment.currentStack?.onBackPressed() ?: false)) {
+            if (!(homeFragment.multistack.onBackPressed())) {
                 if (!backstackDelegate.onBackPressed()) {
                     super.onBackPressed()
                 }

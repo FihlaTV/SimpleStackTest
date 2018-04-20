@@ -32,6 +32,9 @@ dependencies {
     implementation(
             libraries.kotlin_jre7,
             libraries.anko.full,
+            libraries.anko.appcompat,
+            libraries.anko.design,
+            libraries.anko.card_view,
             libraries.anko.constraint_layout,
     )
     implementation 'com.github.Zhuinden:simple-stack:1.9.0'

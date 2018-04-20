@@ -17,12 +17,15 @@ import elton.com.simplestacktest.feature.dashboardblock.DashboardBlockKey
 import elton.com.simplestacktest.feature.other.OtherKey
 import elton.com.simplestacktest.utils.Multistack
 import kotlinx.android.synthetic.main.frame_bottom_nav_view.*
+import timber.log.Timber
 
 /**
  * Created by elton on 16/04/2018.
  */
 
 class HomeFragment: BaseFragment(), StateChanger {
+
+    val test: String by lazy { arguments?.getString("TAG") ?: "NULL" }
 
     lateinit var backstackDelegate: BackstackDelegate
     lateinit var fragmentStateChanger: FragmentStateChanger
@@ -47,6 +50,8 @@ class HomeFragment: BaseFragment(), StateChanger {
 
         currentStack = multistack[StackType.FIRST.name]
 
+        Timber.i(test)
+
         super.onCreate(savedInstanceState)
 
         fragmentStateChanger = FragmentStateChanger(childFragmentManager, R.id.homeFrame)
@@ -59,6 +64,10 @@ class HomeFragment: BaseFragment(), StateChanger {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Control the navigation item.
+//        multistack.setSelectedStack(StackType.DASHBOARD.name)
+//        navigation.selectedItemId = R.id.navigation_dashboard
 
         navigation.setOnNavigationItemSelectedListener { menuItem ->
             multistack.setSelectedStack(menuItem.toString().toUpperCase())
@@ -91,11 +100,11 @@ class HomeFragment: BaseFragment(), StateChanger {
     }
 
     fun navigateTo(key: BaseKey) {
-        currentStack?.backstack?.goTo(key)
+        multistack.navigateTo(key)
     }
 
     fun replaceHistory(key: BaseKey) {
-        currentStack?.backstack?.setHistory(History.single(key), StateChange.REPLACE)
+        multistack.replaceHistory(key)
     }
 
     override fun handleStateChange(stateChange: StateChange, completionCallback: StateChanger.Callback) {

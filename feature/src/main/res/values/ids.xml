@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="blockTextView" type="id" />
+    <item name="blockLayout" type="id" />
+    <item name="titlebar" type="id" />
+    <item name="guideline_40" type="id" />
+    <item name="guideline_60" type="id" />
+</resources>

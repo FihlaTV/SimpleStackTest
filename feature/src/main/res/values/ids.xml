@@ -5,4 +5,5 @@
     <item name="titlebar" type="id" />
     <item name="guideline_40" type="id" />
     <item name="guideline_60" type="id" />
+    <item name="scrollLinearLayout" type="id" />
 </resources>

@@ -90,7 +90,7 @@ class BlockLayout: LinearLayout {
     fun addSubTitle(words: String): BlockLayout {
         val titleLayoutParams = (mTextView.layoutParams as ConstraintLayout.LayoutParams)
         titleLayoutParams.topToTop = R.id.guideline_40
-        titleLayoutParams.bottomToBottom = UNSET
+        titleLayoutParams.bottomToBottom = R.id.guideline_40
 
         (mBaseLayout as _ConstraintLayout).apply {
             textView(words)
@@ -98,6 +98,7 @@ class BlockLayout: LinearLayout {
                         startToStart = PARENT_ID
                         endToEnd = PARENT_ID
                         topToTop = R.id.guideline_60
+                        bottomToBottom = R.id.guideline_60
                     }
         }
 

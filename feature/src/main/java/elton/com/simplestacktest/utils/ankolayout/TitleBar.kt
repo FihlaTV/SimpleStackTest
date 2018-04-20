@@ -27,7 +27,7 @@ class TitleBar: LinearLayout {
     private fun init(): AnkoContext<TitleBar> {
 
         mView = AnkoContext.createDelegate(this).apply {
-            layout = linearLayout {
+            layout = verticalLayout {
                 toolbar = toolbar {
                     id = R.id.titlebar
                     layoutParams = Toolbar.LayoutParams(matchParent, wrapContent)
@@ -53,10 +53,37 @@ class TitleBar: LinearLayout {
                 bottomPadding = 5
                 clipToPadding = false
                 layoutParams = ViewGroup.LayoutParams(matchParent, wrapContent)
+
             }
         }
 
         return mView
+    }
+
+    fun addSubTitle(imgRes: Int = R.drawable.ic_add_black_24dp, text: String = ""): TitleBar {
+        toolbar.bottomPadding = 0
+        (layout as _LinearLayout).apply {
+            linearLayout {
+                backgroundColor = Color.WHITE
+                elevation = 8f
+                verticalPadding = dip(8)
+
+                imageView(imgRes) {
+                    leftPadding = dip(16)
+                }.lparams(wrapContent, wrapContent) {
+                    gravity = Gravity.CENTER_VERTICAL
+                }
+                textView(text) {
+                    textSize = 20f
+                }.lparams(matchParent, wrapContent) {
+                    gravity = Gravity.CENTER_VERTICAL
+                }
+            }.lparams(matchParent, wrapContent) {
+                gravity = Gravity.CENTER_VERTICAL
+            }
+
+        }
+        return mView.owner
     }
 
     fun addButton(imgRes: Int = R.drawable.ic_add_black_24dp, gravity: Int = Gravity.START, id: Int = 0, onClickListener: OnClickListener? = null): TitleBar {

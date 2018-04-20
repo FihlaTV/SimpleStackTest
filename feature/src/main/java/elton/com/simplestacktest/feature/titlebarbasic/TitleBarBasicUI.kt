@@ -25,6 +25,7 @@ class TitleBarBasicUI: AnkoComponent<TitleBarBasicFragment> {
                 titleBar {
                     id = R.id.title
                 }
+                        .addSubTitle(text = "Device(s)")
                         .addBackButton()
                         .addClickableText("TEST", Gravity.END)
                         .lparams(matchParent, wrapContent) {
@@ -39,13 +40,13 @@ class TitleBarBasicUI: AnkoComponent<TitleBarBasicFragment> {
                                 .lparams(matchParent, matchParent, weight = 1f)
 
                         blockLayout("TEST")
-                                .addSubTitle("Sub2")
+//                                .addSubTitle("Sub2")
                                 .lparams(matchParent, matchParent, weight = 1f)
 
                     }.lparams(matchParent, wrapContent, weight = 1f)
 
                     linearLayout {
-                        blockLayout("TEST")
+                        blockLayout("TEST", R.drawable.ic_blur_circular_black_24dp)
                                 .addSubTitle("Sub")
                                 .lparams(matchParent, matchParent, weight = 1f)
 

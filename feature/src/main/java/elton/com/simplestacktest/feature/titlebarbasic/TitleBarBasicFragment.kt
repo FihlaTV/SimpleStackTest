@@ -22,9 +22,5 @@ class TitleBarBasicFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        val toolbar = find<Toolbar>(R.id.titlebar)
-//        ViewCompat.setElevation(toolbar, 8f)
-//        mainActivity.setSupportActionBar(toolbar)
     }
 }

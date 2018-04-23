@@ -6,4 +6,6 @@
     <item name="guideline_40" type="id" />
     <item name="guideline_60" type="id" />
     <item name="scrollLinearLayout" type="id" />
+    <item name="homePageImage" type="id" />
+    <item name="appBarGuideline" type="id" />
 </resources>

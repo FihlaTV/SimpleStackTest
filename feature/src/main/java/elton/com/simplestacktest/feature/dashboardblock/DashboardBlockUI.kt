@@ -1,5 +1,6 @@
 package elton.com.simplestacktest.feature.dashboardblock
 
+import android.graphics.Color
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintLayout.LayoutParams.PARENT_ID
 import android.support.design.widget.AppBarLayout
@@ -13,9 +14,12 @@ import elton.com.simplestacktest.feature.titlebarbasic.TitleBarBasicKey
 import elton.com.simplestacktest.utils.ankolayout.blockLayout
 import org.jetbrains.anko.*
 import org.jetbrains.anko.constraint.layout.constraintLayout
+import org.jetbrains.anko.constraint.layout.guideline
+import org.jetbrains.anko.constraint.layout.matchConstraint
 import org.jetbrains.anko.design.appBarLayout
 import org.jetbrains.anko.design.collapsingToolbarLayout
 import org.jetbrains.anko.design.coordinatorLayout
+import org.jetbrains.anko.support.v4.nestedScrollView
 import timber.log.Timber
 
 /**
@@ -24,42 +28,40 @@ import timber.log.Timber
 
 class DashboardBlockUI: AnkoComponent<DashboardBlockFragment> {
     override fun createView(ui: AnkoContext<DashboardBlockFragment>): View {
-        val constraintMatchParentParams =
-                ConstraintLayout.LayoutParams(
-                        ConstraintLayout.LayoutParams.MATCH_CONSTRAINT_SPREAD,
-                        ConstraintLayout.LayoutParams.MATCH_CONSTRAINT_SPREAD
-                )
-        val matchParentParams =
-                ViewGroup.LayoutParams(
-                        matchParent,
-                        matchParent
-                )
         return with(ui) {
             coordinatorLayout {
-//                fitsSystemWindows = true
                 layoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
 
                 appBarLayout {
+                    id = R.id.homePageImage
                     addOnOffsetChangedListener({ appBarLayout, verticalOffset ->
                         Timber.i(verticalOffset.toString())
                     })
                     collapsingToolbarLayout {
-                        imageView() {}.lparams(matchParent, matchParent) {
+
+                        imageView {
+
+                        }.lparams(matchParent, matchParent) {
                             collapseMode = CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PARALLAX
                         }
-                    }.lparams(matchParent, 300) {
-                        scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL + AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP
+                    }.lparams(matchParent, dip(128)) {
+                        scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP
                     }
                 }.lparams(matchParent, wrapContent)
 
-                verticalLayout {
+                nestedScrollView {
+                    isFillViewport = true
                     id = R.id.scrollLinearLayout
                     constraintLayout {
-                        //                    layoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
-
+                        guideline {
+                            id = R.id.appBarGuideline
+                        }.lparams {
+                            orientation = ConstraintLayout.LayoutParams.HORIZONTAL
+                            guideEnd = dip(128)
+                        }
                         verticalLayout {
                             blockLayout("Add Device", R.drawable.ic_add_black_24dp).alignToEnd()
-                                    .lparams(matchParentParams) {
+                                    .lparams(matchParent, matchParent) {
                                         weight = 1.3f
                                     }
                             linearLayout {
@@ -68,11 +70,11 @@ class DashboardBlockUI: AnkoComponent<DashboardBlockFragment> {
                                             MainActivity[view.context].navigateTo(BaseOneKey())
                                         }
                                 )
-                                        .lparams(matchParentParams) {
+                                        .lparams(matchParent, matchParent) {
                                             weight = 1f
                                         }
 
-                            }.lparams(matchParentParams) {
+                            }.lparams(matchParent, matchParent) {
                                 weight = 1f
                             }
 
@@ -81,47 +83,42 @@ class DashboardBlockUI: AnkoComponent<DashboardBlockFragment> {
                                         View.OnClickListener {
                                             MainActivity[view.context].homeFragment?.navigateTo(TitleBarBasicKey())
                                         })
-                                        .lparams(matchParentParams) {
+                                        .lparams(matchParent, matchParent) {
                                             weight = 0.5f
                                         }
-                                blockLayout("Block 3", R.drawable.ic_blur_circular_black_24dp) {
-                                    visibility = View.INVISIBLE
-                                }
-                                        .lparams(matchParentParams) {
+                                blockLayout("Block 3", R.drawable.ic_blur_circular_black_24dp)
+                                        .lparams(matchParent, matchParent) {
                                             weight = 0.5f
                                         }
-                            }.lparams(matchParentParams) {
+                            }.lparams(matchParent, matchParent) {
                                 weight = 1f
                             }
 
                             linearLayout {
                                 blockLayout("Block 4", R.drawable.ic_blur_circular_black_24dp)
-                                        .lparams(matchParentParams) {
+                                        .lparams(matchParent, matchParent) {
                                             weight = 0.5f
                                         }
                                 blockLayout("Block 5", R.drawable.ic_blur_circular_black_24dp)
-                                        .lparams(matchParentParams) {
+                                        .lparams(matchParent, matchParent) {
                                             weight = 0.5f
                                         }
-                            }.lparams(matchParentParams) {
+                            }.lparams(matchParent, matchParent) {
                                 weight = 1f
                             }
 
-                        }.lparams(constraintMatchParentParams) {
+                        }.lparams(matchConstraint, matchConstraint) {
                             startToStart = PARENT_ID
                             endToEnd = PARENT_ID
                             topToTop = PARENT_ID
-                            bottomToBottom = PARENT_ID
+                            bottomToBottom = R.id.appBarGuideline
                         }
-                    }.lparams(matchParentParams) {
+                    }.lparams(matchParent, matchParent) {
 
                     }
-                }.lparams {
-                    width = matchParent
-                    height = matchParent
+                }.lparams(matchParent, matchParent) {
                     behavior = AppBarLayout.ScrollingViewBehavior()
                 }
-
             }
         }
     }

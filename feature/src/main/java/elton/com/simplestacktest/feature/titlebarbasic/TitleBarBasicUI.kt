@@ -1,6 +1,5 @@
 package elton.com.simplestacktest.feature.titlebarbasic
 
-import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintLayout.LayoutParams.PARENT_ID
 import android.view.Gravity
 import android.view.View
@@ -11,7 +10,6 @@ import elton.com.simplestacktest.utils.ankolayout.titleBar
 import elton.com.simplestacktest.utils.constraintMatchParentParams
 import org.jetbrains.anko.*
 import org.jetbrains.anko.constraint.layout.constraintLayout
-import timber.log.Timber
 
 /**
  * Created by elton on 19/4/2018.
@@ -27,7 +25,8 @@ class TitleBarBasicUI: AnkoComponent<TitleBarBasicFragment> {
                 }
                         .addSubTitle(text = "Device(s)")
                         .addBackButton()
-                        .addClickableText("TEST", Gravity.END)
+                        .addButton(R.drawable.ic_add_black_24dp, Gravity.END)
+//                        .addClickableText("TEST", Gravity.END)
                         .lparams(matchParent, wrapContent) {
                     startToStart = PARENT_ID
                     endToEnd = PARENT_ID
@@ -35,7 +34,7 @@ class TitleBarBasicUI: AnkoComponent<TitleBarBasicFragment> {
 
                 verticalLayout {
                     linearLayout {
-                        blockLayout("TEST")
+                        blockLayout("TEST", R.drawable.ic_blur_circular_black_24dp)
                                 .addSubTitle("Sub")
                                 .lparams(matchParent, matchParent, weight = 1f)
 
@@ -57,7 +56,7 @@ class TitleBarBasicUI: AnkoComponent<TitleBarBasicFragment> {
                     }.lparams(matchParent, wrapContent, weight = 1f)
 
                     linearLayout {
-                        blockLayout("TEST")
+                        blockLayout("TEST", R.drawable.ic_blur_circular_black_24dp)
                                 .addSubTitle("Sub")
                                 .lparams(matchParent, matchParent, weight = 1f)
 

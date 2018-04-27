@@ -7,8 +7,10 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.view.ViewManager
 import android.widget.LinearLayout
+import android.widget.TextView
 import elton.com.simplestacktest.feature.MainActivity
 import elton.com.simplestacktest.feature.R
+import elton.com.simplestacktest.utils.testProp
 import org.jetbrains.anko.*
 import org.jetbrains.anko.appcompat.v7._Toolbar
 import org.jetbrains.anko.appcompat.v7.toolbar
@@ -21,10 +23,11 @@ import timber.log.Timber
 class TitleBar: LinearLayout {
 
     lateinit var mView: AnkoContext<TitleBar>
+    lateinit var mTitleTextView: TextView
     lateinit var layout: LinearLayout
     lateinit var toolbar: Toolbar
 
-    private fun init(): AnkoContext<TitleBar> {
+    private fun init(titleString: CharSequence? = null): AnkoContext<TitleBar> {
 
         mView = AnkoContext.createDelegate(this).apply {
             layout = verticalLayout {
@@ -35,7 +38,8 @@ class TitleBar: LinearLayout {
                     backgroundColor = Color.WHITE
                     elevation = 8f
 
-                    textView("Title") {
+                    mTitleTextView = textView {
+                        text = titleString ?: "Title"
                         textSize = 16f
                         textColor = Color.BLACK
                     }.lparams(
@@ -50,7 +54,7 @@ class TitleBar: LinearLayout {
                         wrapContent
                 )
 
-                bottomPadding = 5
+                bottomPadding = 8
                 clipToPadding = false
                 layoutParams = ViewGroup.LayoutParams(matchParent, wrapContent)
 
@@ -60,16 +64,21 @@ class TitleBar: LinearLayout {
         return mView
     }
 
-    fun addSubTitle(imgRes: Int = R.drawable.ic_add_black_24dp, text: String = ""): TitleBar {
-        toolbar.bottomPadding = 0
+    fun addSubTitle(imgRes: Int = R.drawable.ic_add_black_24dp, text: String = "", doubleElevation: Boolean = false): TitleBar {
+//        toolbar.bottomPadding = 0
+        if (doubleElevation) {
+            toolbar.elevation = 16f
+        }
         (layout as _LinearLayout).apply {
             linearLayout {
                 backgroundColor = Color.WHITE
                 elevation = 8f
+                bottomPadding = 8
                 verticalPadding = dip(8)
 
                 imageView(imgRes) {
                     leftPadding = dip(16)
+                    rightPadding = dip(8)
                 }.lparams(wrapContent, wrapContent) {
                     gravity = Gravity.CENTER_VERTICAL
                 }
@@ -144,8 +153,15 @@ class TitleBar: LinearLayout {
         init()
     }
 
+    constructor(context: Context?, titleString: CharSequence): super(context) {
+        init(titleString)
+    }
+
 }
 
 @Suppress("NOTHING_TO_INLINE")
-inline fun ViewManager.titleBar(init: TitleBar.() -> Unit) =
-        ankoView(::TitleBar, 0, init)
+inline fun ViewManager.titleBar(init: TitleBar.() -> Unit = {}) =
+        ankoView(::TitleBar, 0, { init () })
+
+inline fun ViewManager.titleBar(titleString: CharSequence, init: TitleBar.() -> Unit = {}) =
+        ankoView({ ctx -> TitleBar(ctx, titleString) }, 0, { init () })

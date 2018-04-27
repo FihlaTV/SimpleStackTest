@@ -3,7 +3,8 @@
 buildscript {
     ext {
         anko_version = "0.10.4"
-        kotlin_version = "1.2.30"
+        kotlin_version = "1.2.40"
+        fastadapter_version = "3.2.5"
     }
     ext.libraries = [
 //            constraint_layout: "com.android.support.constraint:constraint-layout:$constraint_layout_version",
@@ -21,6 +22,11 @@ buildscript {
             recycler_view   : "org.jetbrains.anko:anko-recyclerview-v7:$anko_version",
             coroutines      : "org.jetbrains.anko:anko-coroutines:$anko_version",
             constraint_layout: "org.jetbrains.anko:anko-constraint-layout:$anko_version",
+    ]
+    ext.libraries.fastadapter = [
+            basic : "com.mikepenz:fastadapter:$fastadapter_version",
+            common : "com.mikepenz:fastadapter-commons:$fastadapter_version",
+            extensions: "com.mikepenz:fastadapter-extensions-expandable:$fastadapter_version",
     ]
 
     repositories {

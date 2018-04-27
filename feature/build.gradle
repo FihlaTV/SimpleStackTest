@@ -35,7 +35,12 @@ dependencies {
             libraries.anko.appcompat,
             libraries.anko.design,
             libraries.anko.card_view,
+            libraries.anko.recycler_view,
             libraries.anko.constraint_layout,
+
+            libraries.fastadapter.basic,
+            libraries.fastadapter.common,
+            libraries.fastadapter.extensions,
     )
     implementation 'com.github.Zhuinden:simple-stack:1.9.0'
     implementation "com.jakewharton.timber:timber:4.6.0"

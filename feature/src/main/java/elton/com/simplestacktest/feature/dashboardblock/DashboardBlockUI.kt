@@ -11,6 +11,7 @@ import elton.com.simplestacktest.feature.MainActivity
 import elton.com.simplestacktest.feature.R
 import elton.com.simplestacktest.feature.baseone.BaseOneKey
 import elton.com.simplestacktest.feature.titlebarbasic.TitleBarBasicKey
+import elton.com.simplestacktest.feature.titlebarlist.TitleBarListKey
 import elton.com.simplestacktest.utils.ankolayout.blockLayout
 import org.jetbrains.anko.*
 import org.jetbrains.anko.constraint.layout.constraintLayout
@@ -67,7 +68,7 @@ class DashboardBlockUI: AnkoComponent<DashboardBlockFragment> {
                             linearLayout {
                                 blockLayout("Test", R.drawable.ic_blur_circular_black_24dp,
                                         View.OnClickListener {
-                                            MainActivity[view.context].navigateTo(BaseOneKey())
+                                            MainActivity[view.context].replaceHistory(BaseOneKey())
                                         }
                                 )
                                         .lparams(matchParent, matchParent) {
@@ -86,7 +87,10 @@ class DashboardBlockUI: AnkoComponent<DashboardBlockFragment> {
                                         .lparams(matchParent, matchParent) {
                                             weight = 0.5f
                                         }
-                                blockLayout("Block 3", R.drawable.ic_blur_circular_black_24dp)
+                                blockLayout("Block 3", R.drawable.ic_blur_circular_black_24dp,
+                                        View.OnClickListener {
+                                            MainActivity[view.context].homeFragment?.navigateTo(TitleBarListKey())
+                                        })
                                         .lparams(matchParent, matchParent) {
                                             weight = 0.5f
                                         }

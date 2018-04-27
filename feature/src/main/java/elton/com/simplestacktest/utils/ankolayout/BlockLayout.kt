@@ -141,4 +141,4 @@ class BlockLayout: LinearLayout {
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun ViewManager.blockLayout(words: String, drawable: Int = 0, onClickBehaviour: View.OnClickListener? = null, init: BlockLayout.() -> Unit = {}) =
-        ankoView({ctx -> BlockLayout(ctx, words, drawable, onClickBehaviour) }, 0, init)
+        ankoView({ ctx -> BlockLayout(ctx, words, drawable, onClickBehaviour) }, 0, init)

@@ -8,4 +8,6 @@
     <item name="scrollLinearLayout" type="id" />
     <item name="homePageImage" type="id" />
     <item name="appBarGuideline" type="id" />
+    <item name="fastadapter_listitem_id" type="id" />
+    <item name="titleBarListRecyclerView" type="id" />
 </resources>

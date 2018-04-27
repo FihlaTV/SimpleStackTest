@@ -12,6 +12,8 @@ import org.jetbrains.anko.imageView
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.textView
 import timber.log.Timber
+import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KProperty
 
 /**
  * Created by elton on 16/04/2018.
@@ -28,3 +30,19 @@ val constraintMatchParentParams =
                 ConstraintLayout.LayoutParams.MATCH_CONSTRAINT_SPREAD,
                 ConstraintLayout.LayoutParams.MATCH_CONSTRAINT_SPREAD
         )
+
+class ReferenceViewProperty<T>(var property: () -> T) : ReadWriteProperty<Any, T> {
+
+    private var value: Any? = null
+
+    override fun getValue(thisRef: Any, property: KProperty<*>): T {
+        value = this.property.invoke()
+        return value as T
+    }
+
+    override fun setValue(thisRef: Any, property: KProperty<*>, value: T) {
+        this.value = value
+    }
+}
+
+inline fun <reified T> testProp(noinline init: () -> T): ReadWriteProperty<Any, T> = ReferenceViewProperty(init)

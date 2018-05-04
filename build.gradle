@@ -4,12 +4,25 @@ buildscript {
     ext {
         anko_version = "0.10.4"
         kotlin_version = "1.2.40"
+        dagger_version = "2.14.1"
+        retrofit_version = "2.3.0"
         fastadapter_version = "3.2.5"
     }
     ext.libraries = [
 //            constraint_layout: "com.android.support.constraint:constraint-layout:$constraint_layout_version",
             kotlin : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
-            kotlin_jre7 : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version",
+            kotlin_jdk7 : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+    ]
+    ext.libraries.dagger = [
+            dagger          : "com.google.dagger:dagger:$dagger_version",
+            dagger_compiler : "com.google.dagger:dagger-compiler:$dagger_version",
+
+            dagger_android  :
+                    dependencies.create("com.google.dagger:dagger-android:$dagger_version") {
+                        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+                    },
+            dagger_android_support : "com.google.dagger:dagger-android-support:$dagger_version",
+            dagger_android_compiler : "com.google.dagger:dagger-android-processor:$dagger_version",
     ]
     ext.libraries.anko = [
             full            : "org.jetbrains.anko:anko:$anko_version",
@@ -22,6 +35,11 @@ buildscript {
             recycler_view   : "org.jetbrains.anko:anko-recyclerview-v7:$anko_version",
             coroutines      : "org.jetbrains.anko:anko-coroutines:$anko_version",
             constraint_layout: "org.jetbrains.anko:anko-constraint-layout:$anko_version",
+    ]
+    ext.libraries.retrofit2 = [
+            retrofit2       : "com.squareup.retrofit2:retrofit:$retrofit_version",
+            converter_gson  : "com.squareup.retrofit2:converter-gson:$retrofit_version",
+            rxjava2_adapter : "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version",
     ]
     ext.libraries.fastadapter = [
             basic : "com.mikepenz:fastadapter:$fastadapter_version",

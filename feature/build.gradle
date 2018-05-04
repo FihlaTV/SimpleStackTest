@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -30,7 +32,7 @@ dependencies {
     implementation project(':base')
 
     implementation(
-            libraries.kotlin_jre7,
+            libraries.kotlin_jdk7,
             libraries.anko.full,
             libraries.anko.appcompat,
             libraries.anko.design,
@@ -38,9 +40,25 @@ dependencies {
             libraries.anko.recycler_view,
             libraries.anko.constraint_layout,
 
+            libraries.dagger.dagger,
+            libraries.dagger.dagger_android,
+            libraries.dagger.dagger_android_support,
+
+            libraries.retrofit2.retrofit2,
+            libraries.retrofit2.converter_gson,
+            libraries.retrofit2.rxjava2_adapter,
+
             libraries.fastadapter.basic,
             libraries.fastadapter.common,
             libraries.fastadapter.extensions,
+    )
+    annotationProcessor(
+            libraries.dagger.dagger_compiler,
+            libraries.dagger.dagger_android_compiler,
+    )
+    kapt(
+            libraries.dagger.dagger_compiler,
+            libraries.dagger.dagger_android_compiler,
     )
     implementation 'com.github.Zhuinden:simple-stack:1.9.0'
     implementation "com.jakewharton.timber:timber:4.6.0"

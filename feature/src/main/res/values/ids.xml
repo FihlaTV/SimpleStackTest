@@ -2,6 +2,8 @@
 <resources>
     <item name="blockTextView" type="id" />
     <item name="blockLayout" type="id" />
+    <item name="blockImageView" type="id" />
+    <item name="title" type="id" />
     <item name="titlebar" type="id" />
     <item name="guideline_40" type="id" />
     <item name="guideline_60" type="id" />
@@ -10,4 +12,9 @@
     <item name="appBarGuideline" type="id" />
     <item name="fastadapter_listitem_id" type="id" />
     <item name="titleBarListRecyclerView" type="id" />
+    <item name="titleBarGridListTitleBar" type="id" />
+    <item name="titleBarGridListRecyclerView" type="id" />
+    <item name="fastadapter_griditem_id" type="id" />
+    <item name="blockLayoutBase" type="id" />
+    <item name="blockSubTitle" type="id" />
 </resources>

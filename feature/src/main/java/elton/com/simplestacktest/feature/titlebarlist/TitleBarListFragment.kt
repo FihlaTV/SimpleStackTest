@@ -12,7 +12,6 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter.items
 import elton.com.simplestacktest.BaseFragment
 import elton.com.simplestacktest.feature.R
 import org.jetbrains.anko.AnkoContext
-import timber.log.Timber
 
 /**
  * Created by elton on 23/4/2018.
@@ -33,14 +32,7 @@ class TitleBarListFragment: BaseFragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(mainActivity)
         recyclerView.adapter = fastAdapter
-
         itemAdapter.add(list)
-        Timber.i(fastAdapter.itemCount.toString())
-        itemAdapter.add(list)
-        Timber.i(fastAdapter.itemCount.toString())
-        itemAdapter.add(list)
-        Timber.i(recyclerView.adapter.itemCount.toString())
-
         fastAdapter.notifyAdapterDataSetChanged()
 
     }

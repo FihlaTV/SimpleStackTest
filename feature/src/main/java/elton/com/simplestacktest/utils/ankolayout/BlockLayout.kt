@@ -27,10 +27,12 @@ class BlockLayout: LinearLayout {
     lateinit var mView: AnkoContext<BlockLayout>
     lateinit var mBaseLayout: ConstraintLayout
     lateinit var mTextView: TextView
+    lateinit var mSubTitle: TextView
     lateinit var mImageView: ImageView
 
-    private fun init(words: String, drawable: Int, onClickBehaviour: OnClickListener? = null): AnkoContext<BlockLayout> {
+    private fun init(words: String? = null, drawable: Int = 0, onClickBehaviour: OnClickListener? = null): AnkoContext<BlockLayout> {
         mView = AnkoContext.createDelegate(this).apply {
+            id = R.id.blockLayoutBase
             mBaseLayout = constraintLayout {
                 id = R.id.blockLayout
                 backgroundResource = R.drawable.block_layout_background
@@ -74,7 +76,7 @@ class BlockLayout: LinearLayout {
                 }
 
                 mImageView = imageView(drawable) {
-
+                    id = R.id.blockImageView
                 }.lparams {
                     startToStart = PARENT_ID
                     endToEnd = PARENT_ID
@@ -87,13 +89,15 @@ class BlockLayout: LinearLayout {
         return mView
     }
 
-    fun addSubTitle(words: String): BlockLayout {
+    fun addSubTitle(words: String? = null): BlockLayout {
         val titleLayoutParams = (mTextView.layoutParams as ConstraintLayout.LayoutParams)
         titleLayoutParams.topToTop = R.id.guideline_40
         titleLayoutParams.bottomToBottom = R.id.guideline_40
 
         (mBaseLayout as _ConstraintLayout).apply {
-            textView(words)
+            mSubTitle = textView(words) {
+                id = R.id.blockSubTitle
+            }
                     .lparams(wrapContent, wrapContent) {
                         startToStart = PARENT_ID
                         endToEnd = PARENT_ID
@@ -126,7 +130,7 @@ class BlockLayout: LinearLayout {
         init("", 0)
     }
 
-    constructor(context: Context?, words: String, drawable: Int, onClickBehaviour: OnClickListener? = null) : super(context) {
+    constructor(context: Context?, words: String? = null, drawable: Int, onClickBehaviour: OnClickListener? = null) : super(context) {
         init(words, drawable, onClickBehaviour)
     }
 
@@ -140,5 +144,5 @@ class BlockLayout: LinearLayout {
 }
 
 @Suppress("NOTHING_TO_INLINE")
-inline fun ViewManager.blockLayout(words: String, drawable: Int = 0, onClickBehaviour: View.OnClickListener? = null, init: BlockLayout.() -> Unit = {}) =
+inline fun ViewManager.blockLayout(words: String? = null, drawable: Int = 0, onClickBehaviour: View.OnClickListener? = null, init: BlockLayout.() -> Unit = {}) =
         ankoView({ ctx -> BlockLayout(ctx, words, drawable, onClickBehaviour) }, 0, init)

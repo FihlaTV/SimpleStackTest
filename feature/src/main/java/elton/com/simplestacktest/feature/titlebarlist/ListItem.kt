@@ -1,14 +1,10 @@
 package elton.com.simplestacktest.feature.titlebarlist
 
-import android.content.Context
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 import elton.com.simplestacktest.feature.R
-import org.jetbrains.anko.AnkoContext
-import org.jetbrains.anko.find
 
 /**
  * Created by elton on 27/4/2018.

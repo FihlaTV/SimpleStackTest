@@ -5,26 +5,38 @@ import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.test.espresso.idling.CountingIdlingResource
+import android.support.v4.app.Fragment
 import com.zhuinden.simplestack.BackstackDelegate
 import com.zhuinden.simplestack.History
 import com.zhuinden.simplestack.StateChange
 import com.zhuinden.simplestack.StateChanger
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.DaggerAppCompatActivity
+import dagger.android.support.HasSupportFragmentInjector
 import elton.com.simplestacktest.*
 import elton.com.simplestacktest.feature.baseone.BaseOneKey
 import elton.com.simplestacktest.feature.home.HomeFragment
 import elton.com.simplestacktest.feature.home.HomeKey
 import elton.com.simplestacktest.utils.keyName
+import retrofit2.Retrofit
+import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by elton on 16/04/2018.
  */
 
-class MainActivity : AppCompatActivity(), StateChanger {
+class MainActivity : DaggerAppCompatActivity(), StateChanger, HasSupportFragmentInjector {
 
     lateinit var backstackDelegate: BackstackDelegate
     lateinit var fragmentStateChanger: FragmentStateChanger
 
     var homeFragment: HomeFragment? = null
+
+    @Inject lateinit var retrofit: Retrofit
+    @Inject lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
     // Provide the idling resource for Espresso test case
     val idlingResource = CountingIdlingResource("MAIN_ACTIVITY")
@@ -32,6 +44,8 @@ class MainActivity : AppCompatActivity(), StateChanger {
     override fun onCreate(savedInstanceState: Bundle?) {
         if (BuildConfig.DEBUG)
             idlingResource.increment()
+
+        AndroidInjection.inject(this)
 
         backstackDelegate = BackstackDelegate(null)
         backstackDelegate.onCreate(
@@ -44,6 +58,7 @@ class MainActivity : AppCompatActivity(), StateChanger {
         backstackDelegate.registerForLifecycleCallbacks(this)
 
         super.onCreate(savedInstanceState)
+        Timber.i(retrofit.toString())
         // homeFragment variable is initialized after HomeFragment is initialized.
         setContentView(R.layout.activity_main)
 
@@ -57,6 +72,7 @@ class MainActivity : AppCompatActivity(), StateChanger {
     }
 
     override fun onBackPressed() {
+        Timber.i(retrofit.toString())
         val backStackTag = backstackDelegate.backstack.getHistory<BaseKey>().last()
         if (backStackTag.tag == keyName(HomeKey)) {
             val homeFragment = supportFragmentManager.findFragmentByTag(backStackTag.toString()) as HomeFragment
@@ -102,5 +118,9 @@ class MainActivity : AppCompatActivity(), StateChanger {
         operator fun get(context: Context): MainActivity {
             return context.getSystemService(TAG) as MainActivity
         }
+    }
+
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> {
+        return fragmentDispatchingAndroidInjector
     }
 }

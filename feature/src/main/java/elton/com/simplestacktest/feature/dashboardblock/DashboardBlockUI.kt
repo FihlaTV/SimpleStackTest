@@ -11,6 +11,7 @@ import elton.com.simplestacktest.feature.MainActivity
 import elton.com.simplestacktest.feature.R
 import elton.com.simplestacktest.feature.baseone.BaseOneKey
 import elton.com.simplestacktest.feature.titlebarbasic.TitleBarBasicKey
+import elton.com.simplestacktest.feature.titlebargridlist.TitleBarGridListKey
 import elton.com.simplestacktest.feature.titlebarlist.TitleBarListKey
 import elton.com.simplestacktest.utils.ankolayout.blockLayout
 import org.jetbrains.anko.*
@@ -99,7 +100,10 @@ class DashboardBlockUI: AnkoComponent<DashboardBlockFragment> {
                             }
 
                             linearLayout {
-                                blockLayout("Block 4", R.drawable.ic_blur_circular_black_24dp)
+                                blockLayout("Block 4", R.drawable.ic_blur_circular_black_24dp,
+                                        View.OnClickListener {
+                                            MainActivity[view.context].homeFragment?.navigateTo(TitleBarGridListKey())
+                                        })
                                         .lparams(matchParent, matchParent) {
                                             weight = 0.5f
                                         }

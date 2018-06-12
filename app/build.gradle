@@ -16,12 +16,27 @@ android {
     }
 
     buildTypes {
-       release {
-           minifyEnabled false
-           proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-       }
+        applicationVariants.all { variant ->
+            // Get the versionName to be the android string variable.
+            variant.resValue "string", "versionName", android.defaultConfig.versionName
+        }
+        beta {
+            initWith debug
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
+}
 
+/**
+ * Include Dagger 2 generated class files to unit test case.
+ */
+android.applicationVariants.all { variant ->
+    def aptOutputDir = new File(buildDir, "generated/source/kapt/${variant.unitTestVariant.dirName}")
+    variant.unitTestVariant.addJavaSourceFoldersToModel(aptOutputDir)
+//    assembleDebug.finalizedBy('assembleDebugUnitTest')
 }
 
 dependencies {

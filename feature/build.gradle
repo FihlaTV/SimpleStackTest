@@ -18,11 +18,29 @@ android {
     androidExtensions {
         experimental = true
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+
+        test.java.srcDirs += 'src/test/kotlin'
+
+        androidTest {
+            resources.srcDirs += ['src/androidTest/kotlin', 'src/androidTest/resources']
+        }
+    }
     buildTypes {
+        beta {
+            initWith debug
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    kapt {
+        useBuildCache = true
+    }
+    androidExtensions {
+        experimental = true
     }
 }
 
@@ -67,6 +85,12 @@ dependencies {
     implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.1'
 
     testImplementation 'junit:junit:4.12'
+    testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    testAnnotationProcessor(
+            libraries.dagger.dagger_compiler,
+    )
+
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     

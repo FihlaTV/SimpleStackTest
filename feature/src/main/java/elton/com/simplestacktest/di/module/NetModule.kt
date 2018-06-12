@@ -1,4 +1,4 @@
-package elton.com.simplestacktest.di
+package elton.com.simplestacktest.di.module
 
 import com.google.gson.*
 import dagger.Module
@@ -16,7 +16,7 @@ import javax.inject.Singleton
  **/
 @Module
 class NetModule
- {
+(val mBaseUrl: String){
 
      @Provides
      @Singleton
@@ -61,7 +61,7 @@ class NetModule
          val retrofit = Retrofit.Builder()
                  .addConverterFactory(GsonConverterFactory.create(gson))
                  .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                 .baseUrl("http://github.com")
+                 .baseUrl(mBaseUrl)
                  .client(okHttpClient)
                  .build()
          return retrofit

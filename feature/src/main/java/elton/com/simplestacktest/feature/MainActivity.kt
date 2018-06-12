@@ -28,7 +28,7 @@ import javax.inject.Inject
  * Created by elton on 16/04/2018.
  */
 
-class MainActivity : DaggerAppCompatActivity(), StateChanger, HasSupportFragmentInjector {
+class MainActivity : AppCompatActivity(), StateChanger {
 
     lateinit var backstackDelegate: BackstackDelegate
     lateinit var fragmentStateChanger: FragmentStateChanger
@@ -36,16 +36,15 @@ class MainActivity : DaggerAppCompatActivity(), StateChanger, HasSupportFragment
     var homeFragment: HomeFragment? = null
 
     @Inject lateinit var retrofit: Retrofit
-    @Inject lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
     // Provide the idling resource for Espresso test case
     val idlingResource = CountingIdlingResource("MAIN_ACTIVITY")
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        BaseApplication.mNetComponent.inject(this)
+
         if (BuildConfig.DEBUG)
             idlingResource.increment()
-
-        AndroidInjection.inject(this)
 
         backstackDelegate = BackstackDelegate(null)
         backstackDelegate.onCreate(
@@ -72,7 +71,6 @@ class MainActivity : DaggerAppCompatActivity(), StateChanger, HasSupportFragment
     }
 
     override fun onBackPressed() {
-        Timber.i(retrofit.toString())
         val backStackTag = backstackDelegate.backstack.getHistory<BaseKey>().last()
         if (backStackTag.tag == keyName(HomeKey)) {
             val homeFragment = supportFragmentManager.findFragmentByTag(backStackTag.toString()) as HomeFragment
@@ -118,9 +116,5 @@ class MainActivity : DaggerAppCompatActivity(), StateChanger, HasSupportFragment
         operator fun get(context: Context): MainActivity {
             return context.getSystemService(TAG) as MainActivity
         }
-    }
-
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> {
-        return fragmentDispatchingAndroidInjector
     }
 }
